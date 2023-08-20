@@ -1,0 +1,14 @@
+{
+  "es": [
+    "username_hint",
+    "unknown_error",
+    "weak_password_error",
+    "user_not_created_error",
+    "not_selected_sleep_quality",
+    "forgotten_password_title"
+  ],
+
+  "pt": [
+    "forgotten_password_title"
+  ]
+}
