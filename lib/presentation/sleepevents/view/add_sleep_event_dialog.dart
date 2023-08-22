@@ -110,78 +110,67 @@ class _AddSleepEventDialogState extends State<AddSleepEventDialog> {
                     horizontal: Dimens.marginNormal,
                     vertical: Dimens.marginNormal,
                   ),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: NumberPicker(
-                          minValue: Constants.SLEEP_HOURS_MIN,
-                          maxValue: Constants.SLEEP_HOURS_MAX,
-                          value: hours!,
-                          axis: Axis.horizontal,
-                          step: 1,
-                          textStyle: const TextStyle(
-                            fontSize: Dimens.fontSizeNormal,
-                            color: AppColors.sleepColor,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: AppColors.sleepColor),
-                          ),
-                          onChanged: (hoursSelected) {
-                            setState(() => hours = hoursSelected);
-                          },
+                      Container(
+                        margin: const EdgeInsets.only(right: Dimens.marginNormal, bottom: Dimens.marginNormal),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '- ${AppLocalizations.of(context)!.hours} -',
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: Dimens.marginNormal),
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            AppLocalizations.of(context)!.hours,
-                          ),
+                      NumberPicker(
+                        minValue: Constants.SLEEP_HOURS_MIN,
+                        maxValue: Constants.SLEEP_HOURS_MAX,
+                        value: hours!,
+                        axis: Axis.horizontal,
+                        step: 1,
+                        textStyle: const TextStyle(
+                          fontSize: Dimens.fontSizeNormal,
+                          color: AppColors.sleepColor,
                         ),
-                      )
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: AppColors.sleepColor),
+                        ),
+                        onChanged: (hoursSelected) {
+                          setState(() => hours = hoursSelected);
+                        },
+                      ),
                     ],
                   ),
 
-                ), Container(
+                ),
+                Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: Dimens.marginNormal,
                     vertical: Dimens.marginNormal,
                   ),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: NumberPicker(
-                          minValue: Constants.SLEEP_MINUTES_MIN,
-                          maxValue: Constants.SLEEP_MINUTES_MAX,
-                          value: minutes!,
-                          axis: Axis.horizontal,
-                          step: 1,
-                          textStyle: const TextStyle(
-                            fontSize: Dimens.fontSizeNormal,
-                            color: AppColors.sleepColor,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: AppColors.sleepColor),
-                          ),
-                          onChanged: (minutesSelected) => setState(() => minutes = minutesSelected),
+                      Container(
+                        margin: const EdgeInsets.only(right: Dimens.marginNormal, bottom: Dimens.marginNormal),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '- ${AppLocalizations.of(context)!.minutes} -',
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: Dimens.marginNormal),
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            AppLocalizations.of(context)!.minutes,
-                          ),
+                      NumberPicker(
+                        minValue: Constants.SLEEP_MINUTES_MIN,
+                        maxValue: Constants.SLEEP_MINUTES_MAX,
+                        value: minutes!,
+                        axis: Axis.horizontal,
+                        step: 1,
+                        textStyle: const TextStyle(
+                          fontSize: Dimens.fontSizeNormal,
+                          color: AppColors.sleepColor,
                         ),
-                      )
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: AppColors.sleepColor),
+                        ),
+                        onChanged: (minutesSelected) => setState(() => minutes = minutesSelected),
+                      ),
                     ],
                   ),
                 ),
