@@ -32,11 +32,12 @@ class _AddSportEventDialogState extends State<AddSportEventDialog> {
   final _textController = TextEditingController();
   final _durationTextController = TextEditingController();
   final dateTimeHelper = DateTimeHelper();
+  bool _deletedText = false;
   DateTime? chosenDate;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit && _textController.text.isEmpty) _textController.text = widget.textInfo;
+    if (widget.isEdit && _textController.text.isEmpty && !_deletedText) _textController.text = widget.textInfo;
     if (widget.isEdit && widget.duration != null && _durationTextController.text.isEmpty) _durationTextController.text = widget.duration.toString();
     chosenDate ??= widget.eventDate;
 
@@ -82,6 +83,7 @@ class _AddSportEventDialogState extends State<AddSportEventDialog> {
                             : Container(),
                         onPressed: () => setState(() {
                           _textController.text = '';
+                          _deletedText = true;
                         }),
                       ),
                     ),
@@ -89,6 +91,7 @@ class _AddSportEventDialogState extends State<AddSportEventDialog> {
                     onChanged: (value) {
                       setState(() {
                         _textController;
+                        _deletedText = false;
                       });
                     },
                   ),

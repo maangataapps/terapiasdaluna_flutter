@@ -33,11 +33,12 @@ class AddFoodEventDialog extends StatefulWidget {
 class _AddFoodEventDialogState extends State<AddFoodEventDialog> {
   final _textController = TextEditingController();
   final dateTimeHelper = DateTimeHelper();
+  bool _deletedText = false;
   DateTime? chosenDate;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit && _textController.text.isEmpty) _textController.text = widget.textInfo;
+    if (widget.isEdit && _textController.text.isEmpty && !_deletedText) _textController.text = widget.textInfo;
     chosenDate ??= widget.eventDate;
 
     return SimpleDialog(
@@ -82,6 +83,7 @@ class _AddFoodEventDialogState extends State<AddFoodEventDialog> {
                             : Container(),
                         onPressed: () => setState(() {
                           _textController.text = '';
+                          _deletedText = true;
                         }),
                       ),
                     ),
@@ -89,6 +91,7 @@ class _AddFoodEventDialogState extends State<AddFoodEventDialog> {
                     onChanged: (value) {
                       setState(() {
                         _textController;
+                        _deletedText = false;
                       });
                     },
                   ),
