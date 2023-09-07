@@ -1,18 +1,18 @@
-// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:terapiasdaluna/domain/model/profile/profile_model.dart';
 import 'package:terapiasdaluna/infrastructure/errors/error_resolver.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/dialog_helper.dart';
+import 'package:terapiasdaluna/infrastructure/helpers/image_helper.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/snack_bar_helper.dart';
 import 'package:terapiasdaluna/infrastructure/utils/dimens.dart';
 import 'package:terapiasdaluna/presentation/admin/view/admin_screen.dart';
 import 'package:terapiasdaluna/presentation/base/view/loading_screen.dart';
 import 'package:terapiasdaluna/presentation/dashboard/view/dashboard_screen.dart';
-import 'package:terapiasdaluna/presentation/login/bloc/login_actions.dart';
 import 'package:terapiasdaluna/presentation/login/bloc/login_bloc.dart';
 import 'package:terapiasdaluna/presentation/login/bloc/login_state.dart';
+import 'package:terapiasdaluna/presentation/login/bloc/login_actions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:terapiasdaluna/presentation/registry/view/registry_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         margin: const EdgeInsets.all(Dimens.marginXLarge),
                         child: Image.asset(
-                          'assets/icons/logo.png',
+                          ImageHelper().logoName,
                           fit: BoxFit.cover,
                         ),
                       ),

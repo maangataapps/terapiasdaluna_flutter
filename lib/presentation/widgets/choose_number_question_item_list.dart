@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/questions_helper.dart';
 import 'package:terapiasdaluna/infrastructure/utils/app_colors.dart';
 import 'package:terapiasdaluna/infrastructure/utils/dimens.dart';
+import 'package:terapiasdaluna/infrastructure/utils/string_constants.dart';
 import 'package:terapiasdaluna/presentation/questions/model/question_ui.dart';
 import 'package:terapiasdaluna/presentation/widgets/select_quality_icon_list.dart';
 
@@ -50,6 +51,7 @@ class _ChooseNumberQuestionItemListState extends State<ChooseNumberQuestionItemL
               vertical: Dimens.marginNormal,
             ),
             child: SelectQualityItemList(
+              questionId: widget.question.question.id,
               color: AppColors.questionsColor,
               icon: Icons.star,
               isTouchEnabled: true,

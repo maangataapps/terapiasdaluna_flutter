@@ -78,6 +78,7 @@ flutter:
 
   assets:
     - assets/icons/logo.png
+    - assets/icons/logo_name.png
     - assets/icons/food.png
     - assets/icons/sport.png
     - assets/icons/sleep.png

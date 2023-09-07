@@ -48,6 +48,7 @@ class QuestionDialogItemList extends StatelessWidget {
                     color: AppColors.questionsColor,
                     icon: Icons.star,
                     isTouchEnabled: false,
+                    questionId: answeredQuestion.questionId,
                   ),
                 )
               : Container(

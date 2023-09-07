@@ -64,7 +64,10 @@ class LogOutDialog extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   style: buttonStyle(color: MaterialStateProperty.all(Colors.red)),
-                  onPressed: () => onFinish.call(),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    onFinish.call();
+                  },
                   child: Text(AppLocalizations.of(context)!.log_out),
                 ),
               ),

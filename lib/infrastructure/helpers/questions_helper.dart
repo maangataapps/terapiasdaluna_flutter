@@ -1,6 +1,8 @@
 import 'package:terapiasdaluna/domain/model/questions/question.dart';
 
 class QuestionsHelper {
+  final List<int> _fiveStarsQuestion = [1, 3, 4, 7, 8];
+
   static String getQuestionTitle(Question question) => '${question.id+1}.- ${question.title}';
 
   static String getQuestionFromAnsweredQuestion(int questionId) => getQuestionTitle(getQuestionsList().firstWhere((question) => question.id == questionId));
@@ -19,5 +21,6 @@ class QuestionsHelper {
     Question11(),
   ];
 
+  bool isFiveStarsQuestion(int questionId) => _fiveStarsQuestion.contains(questionId+1);
 
 }

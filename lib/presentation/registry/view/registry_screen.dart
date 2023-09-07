@@ -6,6 +6,7 @@ import 'package:terapiasdaluna/infrastructure/errors/error_resolver.dart';
 import 'package:terapiasdaluna/infrastructure/extensions/extensions.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/date_picker_helper.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/date_time_helper.dart';
+import 'package:terapiasdaluna/infrastructure/helpers/image_helper.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/snack_bar_helper.dart';
 import 'package:terapiasdaluna/infrastructure/utils/constants.dart';
 import 'package:terapiasdaluna/infrastructure/utils/dimens.dart';
@@ -65,7 +66,7 @@ class _RegistryScreenState extends State<RegistryScreen> {
                     Container(
                       margin: const EdgeInsets.all(Dimens.marginXLarge),
                       child: Image.asset(
-                        'assets/icons/logo.png',
+                        ImageHelper().logo,
                         fit: BoxFit.cover,
                         height: 100,
                         width: 100,

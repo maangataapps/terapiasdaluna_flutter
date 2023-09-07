@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terapiasdaluna/infrastructure/extensions/extensions.dart';
+import 'package:terapiasdaluna/infrastructure/helpers/questions_helper.dart';
 
 class SelectQualityItemList extends StatefulWidget {
   final int? quality;
@@ -7,6 +8,7 @@ class SelectQualityItemList extends StatefulWidget {
   final bool isTouchEnabled;
   final IconData icon;
   final MaterialColor color;
+  final int questionId;
 
   const SelectQualityItemList({
     super.key,
@@ -15,6 +17,7 @@ class SelectQualityItemList extends StatefulWidget {
     required this.isTouchEnabled,
     required this.icon,
     required this.color,
+    required this.questionId,
   });
 
   @override
@@ -34,6 +37,13 @@ class _SelectQualityItemListState extends State<SelectQualityItemList> {
         widget.icon,
         widget.icon,
       ];
+
+      if (QuestionsHelper().isFiveStarsQuestion(widget.questionId)) {
+        iconList.addAll([
+          widget.icon,
+          widget.icon,
+        ]);
+      }
     }
 
     if (widget.isTouchEnabled) {

@@ -115,10 +115,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   iconSize: 40,
                                   color: Colors.black,
                                   onPressed: () => _dialogHelper.showLogOutDialog(
-                                      context,
-                                      onFinish: () => bloc.add(PerformLogOutAction(
-                                        onFinish: () => Navigator.popAndPushNamed(context, LoginScreen.routeName),
-                                      ),),
+                                    context,
+                                    onFinish: () => bloc.add(PerformLogOutAction(
+                                      onFinish: () => Navigator.popAndPushNamed(context, LoginScreen.routeName),
+                                    ),),
                                   ),
                                 ),
                               ),

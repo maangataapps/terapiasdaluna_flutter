@@ -15,6 +15,7 @@ class ImageHelper {
   final String poop5Image = 'assets/icons/poop5.png';
   final String poop6Image = 'assets/icons/poop6.png';
   final String poop7Image = 'assets/icons/poop7.png';
+  final String logoName = 'assets/icons/logo_name.png';
 
   List<String> createPoopList() => [
     poop1Image,
