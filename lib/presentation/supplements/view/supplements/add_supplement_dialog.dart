@@ -46,20 +46,18 @@ class _AddSupplementDialogState extends State<AddSupplementDialog> {
         color: AppColors.supplementsColor,
       ),
       children: [
-        // if (widget.isEdit && !addNewSupplement) AddSupplementContent(
         if (widget.isEdit) AddSupplementContent(
-              isEdit: widget.isEdit,
-              eventId: widget.id,
-              name: widget.name,
-              dose: widget.dose,
-              intakeForm: widget.intakeForm,
-              quantityPerBox: widget.quantityPerBox,
-              quantityPerTake: widget.quantityPerTake,
-              intakesTimes: widget.intakesTimes,
-              outOfMeals: widget.outOfMeals,
-              onFinish: widget.onFinish,
-            ),
-        // if (!widget.isEdit && addNewSupplement) AddSupplementContent(
+          isEdit: widget.isEdit,
+          eventId: widget.id,
+          name: widget.name,
+          dose: widget.dose,
+          intakeForm: widget.intakeForm,
+          quantityPerBox: widget.quantityPerBox,
+          quantityPerTake: widget.quantityPerTake,
+          intakesTimes: widget.intakesTimes,
+          outOfMeals: widget.outOfMeals,
+          onFinish: widget.onFinish,
+        ),
         if (!widget.isEdit) AddSupplementContent(
           isEdit: widget.isEdit,
           onFinish: widget.onFinish,

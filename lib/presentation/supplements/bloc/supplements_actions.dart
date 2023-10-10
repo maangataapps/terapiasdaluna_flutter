@@ -30,12 +30,6 @@ class EditSupplementAction extends SupplementsActions {
   EditSupplementAction({required this.supplement, required this.onFinish});
 }
 
-class DeleteSupplementAction extends SupplementsActions {
-  final Supplement supplement;
-
-  DeleteSupplementAction({required this.supplement});
-}
-
 class EditSupplementEventAction extends SupplementsActions {
   final Supplement supplement;
   final DateTime chosenDate;

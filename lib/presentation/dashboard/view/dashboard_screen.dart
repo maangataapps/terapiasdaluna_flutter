@@ -173,7 +173,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             onClickSports: () => Navigator.pushNamed(context, SportEventsScreen.routeName),
                             onClickSleep: () => Navigator.pushNamed(context, SleepEventsScreen.routeName),
                             onClickPoopsies: () => Navigator.pushNamed(context, PoopEventsScreen.routeName),
-                            onClickCalendar: () => Navigator.pushNamed(context, CalendarScreen.routeName),
+                            onClickCalendar: () => Navigator.pushNamed(context, CalendarScreen.routeName).then((value) => bloc.add(InitializeStateAction())),
                           ),
                         ),
                       ],
@@ -200,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 children: [
                                   ...state.reminders!.map((reminder) => ReminderItemList(
                                     reminder: reminder,
-                                    onClickedSave: () => _dialogHelper.showAddSupplementEventFromDashboardDialog(
+                                    onClickSave: () => _dialogHelper.showAddSupplementEventFromDashboardDialog(
                                       context: context,
                                       supplementEvent: reminder.supplementEvent,
                                       onFinish: () => bloc.add(SaveSupplementEventFromDashboardAction(

@@ -90,7 +90,7 @@ class EventsHelper {
       List<PoopEvent> poopEvents,
       Function onListen,
       bool listenForAddedChildren,
-  ) {
+      ) {
     if (listenForAddedChildren) {
       poopEventsRef.onChildAdded.listen((event) {
         final poopEvent = _createPoopEventFromDatabaseEvent(event);
@@ -124,7 +124,7 @@ class EventsHelper {
       List<SleepEvent> sleepEvents,
       Function onListen,
       bool listenForAddedChildren,
-  ) {
+      ) {
     if (listenForAddedChildren) {
       sleepEventsRef.onChildAdded.listen((event) {
         final sleepEvent = _createSleepEventFromDatabaseEvent(event);
@@ -158,7 +158,7 @@ class EventsHelper {
       List<Supplement> supplements,
       Function onListen,
       bool listenForAddedChildren,
-  ) {
+      ) {
     if (listenForAddedChildren) {
       supplementsRef.onChildAdded.listen((event) {
         final supplement = createSupplementFromDatabaseEvent(event.snapshot);
@@ -184,7 +184,7 @@ class EventsHelper {
       List<SupplementEvent> supplementEvents,
       Function onListen,
       bool listenForAddedChildren,
-  ) {
+      ) {
     if (listenForAddedChildren) {
       supplementEventsRef.onChildAdded.listen((event) {
         final supplement = _createSupplementEventFromDatabaseEvent(event);
@@ -218,7 +218,7 @@ class EventsHelper {
       List<AnsweredQuestionnaire> questionnaires,
       Function onListen,
       bool listenForAddedChildren,
-  ) {
+      ) {
     if (listenForAddedChildren) {
       questionnairesRef.onChildAdded.listen((event) {
         final questionnaire = _createQuestionnaireFromDatabaseEvent(event);
@@ -463,14 +463,14 @@ class EventsHelper {
       eventDate: event.snapshot.child(constants.eventDate).value as int,
     );
   }
-  
+
   Reminder _createReminder(Supplement supplement, String exactTime, TimeOfSupplement timeOfSupplement, List<int> eventDates) {
     final hour = int.parse(exactTime.split(':')[0]);
     final minutes = int.parse(exactTime.split(':')[1]);
     final intakeTime = _dateTimeHelper.getTimeInMillisecondsFromHourMinutes(hour, minutes);
 
     final supplementEvent = SupplementEvent(
-      eventId: getReminderIdFromExactTime(hour, minutes),
+      eventId: getEventId(),
       supplementId: supplement.id,
       userId: supplement.userId!,
       name: supplement.name,
@@ -491,5 +491,5 @@ class EventsHelper {
       supplementEvent: supplementEvent,
     );
   }
-  
+
 }

@@ -61,7 +61,7 @@ class QuestionsBloc extends BaseBloc<QuestionsActions, QuestionsState> {
         final answeredQuestionnaire = AnsweredQuestionnaire(
           userId: getUserIdInteractor.execute(),
           eventDate: _dateTimeHelper.provideCurrentDate().millisecondsSinceEpoch,
-          eventId: getEventIdFromDate(),
+          eventId: getEventId(),
           answers: questionsAnswered,
         );
         try {
@@ -86,7 +86,7 @@ class QuestionsBloc extends BaseBloc<QuestionsActions, QuestionsState> {
         state.answerList!.replaceRange(answerIndex, answerIndex + 1, [textAnswer]);
       }
       emit(state.copyWith(isLoading: false, onError: null));
-      }
+    }
     );
   }
 

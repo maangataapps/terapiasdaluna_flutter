@@ -42,9 +42,9 @@ class SupplementsBloc extends BaseBloc<SupplementsActions, SupplementsState> {
     required this.editSupplementEventInteractor,
     required this.deleteSupplementEventInteractor,
   }) : super(SupplementsState(
-      isLoading: false,
-      onError: null,
-      totalSupplements: [],
+    isLoading: false,
+    onError: null,
+    totalSupplements: [],
   ),) {
 
     on<InitializeStateAction>((event, emit) async {
@@ -76,12 +76,6 @@ class SupplementsBloc extends BaseBloc<SupplementsActions, SupplementsState> {
       emit(state.copyWith(isLoading: false, onError: null));
     });
 
-    on<DeleteSupplementAction>((event, emit) {
-      emit(state.copyWith(isLoading: true, onError: null));
-
-      emit(state.copyWith(isLoading: false, onError: null));
-    });
-
     on<ChangeSupplementActivationStateAction>((event, emit) {
       final supplement = event.supplement;
       supplement.isActivated = event.isActivated;
@@ -95,7 +89,7 @@ class SupplementsBloc extends BaseBloc<SupplementsActions, SupplementsState> {
       emit(state.copyWith(isLoading: true, onError: null));
 
       final supplementEvent = SupplementEvent(
-        eventId: getEventIdFromDate(),
+        eventId: getEventId(),
         supplementId: event.supplement.id,
         userId: getUserIdInteractor.execute(),
         name: event.supplement.name,

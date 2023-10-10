@@ -41,7 +41,7 @@ class FoodEventsBloc extends BaseBloc<FoodEventsActions, FoodEventsState> {
     on<SaveFoodEventAction>((event, emit) {
       emit(state.copyWith(isLoading: true, onError: null));
       final foodEvent = FoodEvent(
-        eventId: getEventIdFromDate(),
+        eventId: getEventId(),
         userId: getUserIdInteractor.execute(),
         eventDate: event.eventDate,
         foodInfo: event.foodInfo,

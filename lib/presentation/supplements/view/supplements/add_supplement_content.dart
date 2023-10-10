@@ -7,6 +7,7 @@ import 'package:terapiasdaluna/infrastructure/helpers/snack_bar_helper.dart';
 import 'package:terapiasdaluna/infrastructure/helpers/supplements_helper.dart';
 import 'package:terapiasdaluna/infrastructure/utils/app_colors.dart';
 import 'package:terapiasdaluna/infrastructure/utils/dimens.dart';
+import 'package:terapiasdaluna/infrastructure/utils/string_utils.dart';
 import 'package:terapiasdaluna/infrastructure/utils/widget_utils.dart';
 import 'package:terapiasdaluna/presentation/widgets/general_text_field.dart';
 import 'package:terapiasdaluna/presentation/widgets/intake_times_box.dart';
@@ -69,9 +70,7 @@ class _AddSupplementContentState extends State<AddSupplementContent> {
         _intakeTimes = widget.intakesTimes;
       }
     }
-    if (widget.isEdit && _outOfMeals == null) {
-      _outOfMeals = widget.outOfMeals;
-    }
+    _outOfMeals ??= widget.isEdit ? widget.outOfMeals : false;
 
     return Column(
       children: [
@@ -239,7 +238,11 @@ class _AddSupplementContentState extends State<AddSupplementContent> {
           child: ElevatedButton(
             style: buttonStyle(color: MaterialStateProperty.all(AppColors.supplementsColor)),
             onPressed: () {
-              if (_supplementNameController.text != '' &&
+              if (_quantityPerTakeController.text.contains('.') || _quantityPerTakeController.text.contains(',')) {
+                showSnackBarError(context, AppLocalizations.of(context)!.quantity_per_take_number_must_be_int_error);
+              } else if (_quantityPerBoxController.text.contains('.') || _quantityPerBoxController.text.contains(',')) {
+                showSnackBarError(context, AppLocalizations.of(context)!.quantity_per_box_number_must_be_int_error);
+              } else if (_supplementNameController.text != '' &&
                   _concentrationController.text != '' &&
                   _unitName != null &&
                   _formName != null &&
@@ -247,7 +250,7 @@ class _AddSupplementContentState extends State<AddSupplementContent> {
                   _quantityPerBoxController.text != ''
               ) {
                 final supplement = Supplement(
-                  id: widget.eventId ?? DateTimeHelper().provideCurrentDate().millisecondsSinceEpoch.toString(),
+                  id: widget.eventId ?? getEventId(),
                   name: _supplementNameController.text,
                   dose: Dose(
                     dose: int.parse(_concentrationController.text),

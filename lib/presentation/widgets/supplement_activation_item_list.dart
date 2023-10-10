@@ -36,7 +36,7 @@ class _SupplementActivationItemListState extends State<SupplementActivationItemL
             flex: 4,
             child: Container(
               alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.only(left: Dimens.marginNormal, top: Dimens.marginNormal),
+              margin: const EdgeInsets.only(left: Dimens.marginNormal, top: Dimens.marginSmall, bottom: Dimens.marginSmall),
               child: Text(
                 SupplementsHelper().getSupplementCompleteName(context, widget.supplement),
                 overflow: TextOverflow.clip,

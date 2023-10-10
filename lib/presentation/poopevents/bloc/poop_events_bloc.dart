@@ -19,7 +19,7 @@ class PoopEventsBloc extends BaseBloc<PoopEventsActions, PoopEventsState> {
   final EditPoopEventInteractor editPoopEventInteractor;
   final StreamController<List<PoopEvent>> _streamController = StreamController<List<PoopEvent>>.broadcast();
   late Stream<List<PoopEvent>> streamStream = _streamController.stream;
-  
+
   PoopEventsBloc({
     required this.listenToPoopEventsInteractor,
     required this.getUserIdInteractor,
@@ -40,7 +40,7 @@ class PoopEventsBloc extends BaseBloc<PoopEventsActions, PoopEventsState> {
       emit(state.copyWith(isLoading: true, onError: null));
       final poopEvent = PoopEvent(
         userId: getUserIdInteractor.execute(),
-        eventId: getEventIdFromDate(),
+        eventId: getEventId(),
         eventDate: event.eventDate,
         poopType: event.poopType,
         abdominalPain: event.abdominalPain,

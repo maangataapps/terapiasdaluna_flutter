@@ -40,7 +40,7 @@ class SleepEventsBloc extends BaseBloc<SleepEventsActions, SleepEventsState> {
       emit(state.copyWith(isLoading: true, onError: null));
       final sleepEvent = SleepEvent(
         userId: getUserIdInteractor.execute(),
-        eventId: getEventIdFromDate(),
+        eventId: getEventId(),
         eventDate: event.eventDate,
         quality: event.quality,
         sleepTime: event.sleepTime,

@@ -6,13 +6,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReminderItemList extends StatelessWidget {
   final Reminder reminder;
-  final Function onClickedSave;
+  final Function onClickSave;
   final _eventsHelper = EventsHelper();
 
   ReminderItemList({
     super.key,
     required this.reminder,
-    required this.onClickedSave,
+    required this.onClickSave,
   });
 
   @override
@@ -61,7 +61,7 @@ class ReminderItemList extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                    onPressed: reminder.hasBeenTaken ? null : () => onClickedSave.call(),
+                    onPressed: reminder.hasBeenTaken ? null : () => onClickSave.call(),
                     icon: const Icon(Icons.check_circle_outline_rounded, color: Colors.green,),
                   ),
                 )

@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:terapiasdaluna/domain/model/profile/profile_model.dart';
 import 'package:terapiasdaluna/infrastructure/errors/error_resolver.dart';
@@ -21,7 +24,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -72,174 +75,181 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (cxt, state) => SafeArea(
             child: Scaffold(
               backgroundColor: Colors.white,
-              body: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(Dimens.marginXLarge),
-                        child: Image.asset(
-                          ImageHelper().logoName,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      if (!state.isLogin!) Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.username_hint,
-                            errorMaxLines: 3,
+              body: AutofillGroup(
+                onDisposeAction: AutofillContextAction.commit,
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(Dimens.marginXLarge),
+                          child: Image.asset(
+                            ImageHelper().logoName,
+                            fit: BoxFit.cover,
                           ),
-                          controller: _usernameController,
-                          validator: (value) => resolveFormError(context, bloc.validateUsername(value)),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText:
-                            AppLocalizations.of(context)!.email,
-                            errorMaxLines: 3,
+                        if (!state.isLogin!) Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextFormField(
+                            autofillHints: const [AutofillHints.username],
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.username_hint,
+                              errorMaxLines: 3,
+                            ),
+                            controller: _usernameController,
+                            validator: (value) => resolveFormError(context, bloc.validateUsername(value)),
                           ),
-                          controller: _emailController,
-                          validator: (value) => resolveFormError(context, bloc.validateEmail(value)),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.password_hint,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                state.isPasswordVisible! ? Icons.visibility : Icons.visibility_off,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextFormField(
+                            autofillHints: const [AutofillHints.email],
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.email,
+                              errorMaxLines: 3,
+                            ),
+                            controller: _emailController,
+                            validator: (value) => resolveFormError(context, bloc.validateEmail(value)),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextFormField(
+                            autofillHints: const [AutofillHints.password],
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.password_hint,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  state.isPasswordVisible! ? Icons.visibility : Icons.visibility_off,
+                                ),
+                                onPressed: () => bloc.add(ChangePasswordVisibility()),
                               ),
-                              onPressed: () => bloc.add(ChangePasswordVisibility()),
+                              errorMaxLines: 3,
                             ),
-                            errorMaxLines: 3,
+                            controller: _passwordController,
+                            obscureText: state.isPasswordVisible!,
+                            validator: (value) => resolveFormError(context, bloc.validatePassword(value)),
                           ),
-                          controller: _passwordController,
-                          obscureText: state.isPasswordVisible!,
-                          validator: (value) => resolveFormError(context, bloc.validatePassword(value)),
                         ),
-                      ),
-                      if (!state.isLogin!) Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20,),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.repeat_password,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                state.isRepeatPasswordVisible! ? Icons.visibility : Icons.visibility_off,
+                        if (!state.isLogin!) Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20,),
+                          child: TextFormField(
+                            autofillHints: const [],
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.repeat_password,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  state.isRepeatPasswordVisible! ? Icons.visibility : Icons.visibility_off,
+                                ),
+                                onPressed: () => bloc.add(ChangeRepeatPasswordVisibility()),
                               ),
-                              onPressed: () => bloc.add(ChangeRepeatPasswordVisibility()),
+                              errorMaxLines: 3,
                             ),
-                            errorMaxLines: 3,
+                            controller: _repeatPasswordController,
+                            obscureText: state.isRepeatPasswordVisible!,
+                            validator: (value) => resolveFormError(context, bloc.validateRepeatPassword(value, _passwordController.text)),
                           ),
-                          controller: _repeatPasswordController,
-                          obscureText: state.isRepeatPasswordVisible!,
-                          validator: (value) => resolveFormError(context, bloc.validateRepeatPassword(value, _passwordController.text)),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: Dimens.marginXXLarge),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
-                            ),
-                            child: Text(state.isLogin!
-                                ? AppLocalizations.of(context)!.login
-                                : AppLocalizations.of(context)!.register,
-                            ),
-                            onPressed: () {
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: Dimens.marginXXLarge),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.teal,
+                              ),
+                              child: Text(state.isLogin!
+                                  ? AppLocalizations.of(context)!.login
+                                  : AppLocalizations.of(context)!.register,
+                              ),
+                              onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  if (state.isLogin!) {
-                                    bloc.add(DoLoginAction(
-                                      email: _emailController.text,
-                                      password: _passwordController.text,
-                                      onFinish: (int userType) {
-                                        if (userType == UserType.user.index) {
-                                          Navigator.of(context).popAndPushNamed(DashboardScreen.routeName);
-                                        } else if (userType == UserType.admin.index) {
-                                          Navigator.of(context).popAndPushNamed(AdminScreen.routeName);
-                                        }
-                                      },
-                                    ),);
-                                  } else {
-                                    if (_passwordController.text == _repeatPasswordController.text) {
-                                      dialogHelper.showTermsAndConditionsDialog(
-                                        context,
-                                        onAccept: () {
-                                          Navigator.pop(context);
-                                          bloc.add(CreateUserAction(
-                                            name: _usernameController.text,
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                            acceptanceString: AppLocalizations.of(context)!.accept_terms_and_conditions,
-                                            onFinish: () => Navigator.of(context).popAndPushNamed(RegistryScreen.routeName),
-                                          ),);
+                                    if (state.isLogin!) {
+                                      bloc.add(DoLoginAction(
+                                        email: _emailController.text.trim(),
+                                        password: _passwordController.text.trim(),
+                                        onFinish: (int userType) {
+                                          TextInput.finishAutofillContext();
+                                          if (userType == UserType.user.index) {
+                                            Navigator.of(context).popAndPushNamed(DashboardScreen.routeName);
+                                          } else if (userType == UserType.admin.index) {
+                                            Navigator.of(context).popAndPushNamed(AdminScreen.routeName);
+                                          }
                                         },
-                                        onReject: () => Navigator.pop(context),
-                                      );
+                                      ),);
                                     } else {
-                                      showSnackBarError(context, AppLocalizations.of(context)!.passwords_dont_match);
+                                      if (_passwordController.text == _repeatPasswordController.text) {
+                                        dialogHelper.showTermsAndConditionsDialog(
+                                          context,
+                                          onAccept: () {
+                                            Navigator.pop(context);
+                                            bloc.add(CreateUserAction(
+                                              name: _usernameController.text,
+                                              email: _emailController.text,
+                                              password: _passwordController.text,
+                                              acceptanceString: AppLocalizations.of(context)!.accept_terms_and_conditions,
+                                              onFinish: () => Navigator.of(context).popAndPushNamed(RegistryScreen.routeName),
+                                            ),);
+                                          },
+                                          onReject: () => Navigator.pop(context),
+                                        );
+                                      } else {
+                                        showSnackBarError(context, AppLocalizations.of(context)!.passwords_dont_match);
+                                      }
                                     }
                                   }
-                                }
-                              },
+                                },
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.dont_have_account,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  AppLocalizations.of(context)!.dont_have_account,
+                                ),
                               ),
-                            ),
-                            TextButton(
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  textStyle: const TextStyle(),
+                                ),
+                                onPressed: () => bloc.add(ChangeLoginModeAction()),
+                                child: Text(
+                                  AppLocalizations.of(context)!.register,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Center(
+                            child: TextButton(
                               style: TextButton.styleFrom(
                                 textStyle: const TextStyle(),
+                                foregroundColor: Colors.teal,
                               ),
-                              onPressed: () => bloc.add(ChangeLoginModeAction()),
+                              onPressed: () => dialogHelper.showForgottenPasswordDialog(
+                                context,
+                                onAccept: (String email) => bloc.add(ForgottenPasswordAction(email: email, onFinish: () => Navigator.pop(context))),
+                                onReject: () => Navigator.pop(context),
+                              ),
                               child: Text(
-                                AppLocalizations.of(context)!.register,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Center(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(),
-                              foregroundColor: Colors.teal,
-                            ),
-                            onPressed: () => dialogHelper.showForgottenPasswordDialog(
-                              context,
-                              onAccept: (String email) => bloc.add(ForgottenPasswordAction(email: email, onFinish: () => Navigator.pop(context))),
-                              onReject: () => Navigator.pop(context),
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context)!.forgotten_password,
-                              style: const TextStyle(
-                                color: Colors.black,
+                                AppLocalizations.of(context)!.forgotten_password,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

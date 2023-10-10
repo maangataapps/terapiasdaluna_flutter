@@ -38,7 +38,7 @@ class SportEventsBloc extends BaseBloc<SportEventsActions, SportEventsState> {
     on<SaveSportEventAction>((event, emit) {
       emit(state.copyWith(isLoading: true, onError: null));
       final sportEvent = SportEvent(
-        eventId: getEventIdFromDate(),
+        eventId: getEventId(),
         userId: getUserIdInteractor.execute(),
         eventDate: event.eventDate,
         sportInfo: event.sportInfo,
